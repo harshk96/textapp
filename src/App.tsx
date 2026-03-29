@@ -66,10 +66,10 @@ const App: React.FC = () => {
     const themeColor = document.querySelector('meta[name="theme-color"]');
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
-      if (themeColor) themeColor.setAttribute('content', '#111827'); // gray-900
+      if (themeColor) themeColor.setAttribute('content', '#1a0d14'); // dark pink black
     } else {
       document.documentElement.classList.remove('dark');
-      if (themeColor) themeColor.setAttribute('content', '#ffffff');
+      if (themeColor) themeColor.setAttribute('content', '#fff5f7'); // light pink
     }
     localStorage.setItem('storyarch-dark-mode', JSON.stringify(isDarkMode));
   }, [isDarkMode]);
@@ -120,7 +120,7 @@ const App: React.FC = () => {
           animate={{ rotate: 360 }}
           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
         >
-          <Loader2 className="w-8 h-8 text-blue-600" />
+          <Loader2 className="w-8 h-8 text-brand" />
         </motion.div>
       </div>
     );
@@ -128,29 +128,51 @@ const App: React.FC = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 p-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#fff5f7] via-white to-[#fdf2f8] dark:from-[#1a0d14] dark:via-[#11080c] dark:to-[#1a0d14] p-4 relative overflow-hidden">
+        {/* Floating background elements */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand/5 dark:bg-brand/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 dark:bg-purple-900/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+        
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-md w-full bg-white dark:bg-gray-900 rounded-3xl shadow-xl p-8 text-center space-y-8 border border-gray-100 dark:border-gray-800"
+          className="max-w-md w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl rounded-[40px] shadow-2xl p-10 text-center space-y-8 border border-white dark:border-gray-800 z-10"
         >
-          <div className="w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center mx-auto shadow-lg shadow-blue-200 dark:shadow-blue-900/20 rotate-3">
-            <BookOpen className="w-10 h-10 text-white -rotate-3" />
+          <div className="relative inline-block">
+            <div className="w-24 h-24 bg-brand rounded-[32px] flex items-center justify-center mx-auto shadow-2xl shadow-pink-200 dark:shadow-none rotate-3">
+              <BookOpen className="w-12 h-12 text-white -rotate-3" />
+            </div>
+            <motion.div 
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-4 w-12 h-12 bg-white dark:bg-gray-800 rounded-2xl shadow-lg flex items-center justify-center border border-pink-50 dark:border-gray-700"
+            >
+              <Plus className="w-6 h-6 text-brand" />
+            </motion.div>
           </div>
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">StoryArch</h1>
-            <p className="text-gray-500 dark:text-gray-400">Your personal library for stories, notes, and ideas. Secure, offline-first, and beautifully organized.</p>
+          
+          <div className="space-y-3">
+            <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tight">StoryArch</h1>
+            <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Your personal sanctuary for stories & notes. Crafted for writers who value elegance and focus.</p>
           </div>
-          <button
-            onClick={login}
-            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gray-900 dark:bg-blue-600 text-white rounded-2xl hover:bg-black dark:hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl active:scale-95 font-semibold"
-          >
-            <LogIn className="w-5 h-5" />
-            Sign in with Google
-          </button>
-          <div className="pt-4 flex items-center justify-center gap-4 text-gray-400">
-            <Github className="w-5 h-5 cursor-pointer hover:text-gray-600" />
-            <span className="text-xs uppercase tracking-widest font-bold">v1.1.0</span>
+          
+          <div className="space-y-4 pt-4">
+            <button
+              onClick={login}
+              className="w-full flex items-center justify-center gap-3 px-8 py-4.5 bg-brand text-white rounded-3xl hover:bg-brand-dark transition-all shadow-xl shadow-pink-100 dark:shadow-none active:scale-95 font-bold text-lg"
+            >
+              <LogIn className="w-6 h-6" />
+              Sign in with Google
+            </button>
+            <p className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold">Secure Cloud Sync Included</p>
+          </div>
+          
+          <div className="pt-6 flex items-center justify-center gap-6 text-gray-400">
+            <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-brand transition-colors">
+              <Github className="w-6 h-6" />
+            </a>
+            <div className="h-4 w-[1px] bg-gray-200 dark:bg-gray-700" />
+            <span className="text-[10px] uppercase tracking-widest font-black">Edition 2024</span>
           </div>
         </motion.div>
       </div>
@@ -167,7 +189,7 @@ const App: React.FC = () => {
         )}>
           <div className="p-6 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm">
+              <div className="w-8 h-8 bg-brand rounded-lg flex items-center justify-center shadow-sm">
                 <BookOpen className="w-4 h-4 text-white" />
               </div>
               <h1 className="font-bold text-xl tracking-tight">StoryArch</h1>
@@ -275,17 +297,12 @@ const App: React.FC = () => {
                 onClick={() => setIsSidebarOpen(true)}
                 className="p-2 -ml-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
               >
-                <BookOpen className="w-6 h-6 text-blue-600" />
+                <BookOpen className="w-6 h-6 text-brand" />
               </button>
               <h1 className="font-bold text-lg tracking-tight">StoryArch</h1>
             </div>
             <div className="flex items-center gap-1">
-              <button 
-                onClick={() => setIsNewStory(true)}
-                className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg"
-              >
                 <Plus className="w-6 h-6" />
-              </button>
               <button onClick={() => setIsSettingsOpen(true)} className="p-2 text-gray-500"><Settings className="w-5 h-5" /></button>
             </div>
           </div>
@@ -350,7 +367,7 @@ const App: React.FC = () => {
                       setSelectedStoryId(null);
                       setIsNewStory(false);
                     }}
-                    onAddTag={(name) => addTag({ name, color: '#3b82f6' })}
+                    onAddTag={(name) => addTag({ name, color: '#f06292' })}
                   />
                 ) : (
                   <div className="hidden lg:flex flex-col items-center justify-center h-full text-center p-12 space-y-6">
@@ -363,7 +380,7 @@ const App: React.FC = () => {
                     </div>
                     <button
                       onClick={() => setIsNewStory(true)}
-                      className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 font-semibold"
+                      className="px-6 py-3 bg-brand text-white rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-pink-200 dark:hover:shadow-none font-semibold"
                     >
                       Create New Story
                     </button>

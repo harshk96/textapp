@@ -46,7 +46,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             placeholder="Search stories..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-2.5 bg-gray-100 dark:bg-gray-800 border-transparent focus:bg-white dark:focus:bg-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-900 rounded-xl transition-all outline-none text-gray-900 dark:text-gray-100 text-sm"
+            className="w-full pl-10 pr-10 py-2.5 bg-gray-100 dark:bg-gray-800 border-transparent focus:bg-white dark:focus:bg-gray-700 focus:border-brand focus:ring-2 focus:ring-brand/20 dark:focus:ring-brand/40 rounded-xl transition-all outline-none text-gray-900 dark:text-gray-100 text-sm"
           />
           {searchQuery && (
             <button
@@ -59,7 +59,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         </div>
         <button
           onClick={onNewStory}
-          className="flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 active:scale-95"
+          className="flex items-center gap-2 px-4 py-2.5 bg-brand text-white rounded-xl hover:bg-brand-dark transition-all shadow-lg shadow-pink-200 dark:shadow-none active:scale-95"
         >
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline font-semibold text-sm">New Story</span>
@@ -74,7 +74,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           </div>
           <button 
             onClick={() => setShowTagSearch(!showTagSearch)}
-            className="text-[10px] text-blue-600 dark:text-blue-400 hover:underline font-bold uppercase tracking-wider"
+            className="text-[10px] text-brand dark:text-brand-light hover:underline font-bold uppercase tracking-wider transition-colors"
           >
             {showTagSearch ? 'Hide Search' : 'Search Tags'}
           </button>
@@ -88,7 +88,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
               placeholder="Search tags..."
               value={tagSearch}
               onChange={(e) => setTagSearch(e.target.value)}
-              className="w-full pl-7 pr-3 py-1.5 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg outline-none text-xs focus:border-blue-500"
+              className="w-full pl-7 pr-3 py-1.5 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg outline-none text-xs focus:border-brand transition-all"
             />
           </div>
         )}
@@ -102,7 +102,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 className={cn(
                   "px-2 lg:px-2.5 py-1 rounded-lg text-[9px] lg:text-[10px] font-bold uppercase tracking-wider transition-all border",
                   selectedTags.includes(tag.id)
-                    ? "bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700 text-blue-700 dark:text-blue-300 shadow-sm"
+                    ? "bg-brand/10 dark:bg-brand/20 border-brand/30 dark:border-brand/50 text-brand dark:text-brand-light shadow-sm scale-105"
                     : "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                 )}
               >

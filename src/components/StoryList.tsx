@@ -24,12 +24,12 @@ export const StoryList: React.FC<StoryListProps> = ({
 
   if (stories.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full p-8 text-center text-gray-400">
-        <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
-          <TagIcon className="w-8 h-8" />
+      <div className="flex flex-col items-center justify-center h-full p-8 text-center text-gray-400 dark:text-gray-500 animate-in fade-in zoom-in duration-500">
+        <div className="w-20 h-20 bg-brand/10 dark:bg-brand/20 rounded-[32px] flex items-center justify-center mb-6 shadow-inner">
+          <TagIcon className="w-10 h-10 text-brand" />
         </div>
-        <p className="text-lg font-medium">No stories found</p>
-        <p className="text-sm">Try adjusting your search or filters</p>
+        <p className="text-xl font-black text-gray-900 dark:text-white mb-2">No stories found</p>
+        <p className="text-sm max-w-[200px] leading-relaxed">Try adjusting your search or create a new story to begin.</p>
       </div>
     );
   }
@@ -43,21 +43,21 @@ export const StoryList: React.FC<StoryListProps> = ({
         animate={{ opacity: 1 }}
         onClick={() => onSelectStory(story.id)}
         className={cn(
-          "w-full text-left p-5 lg:p-4 transition-all hover:bg-gray-50 dark:hover:bg-gray-800 flex items-start gap-4 group border-b border-gray-100 dark:border-gray-800",
-          selectedStoryId === story.id ? "bg-blue-50 dark:bg-blue-900/10 border-l-4 border-blue-500" : "border-l-4 border-transparent"
+          "w-full text-left p-5 lg:p-4 transition-all hover:bg-brand/5 dark:hover:bg-brand/10 flex items-start gap-4 group border-b border-gray-100 dark:border-gray-800",
+          selectedStoryId === story.id ? "bg-brand/10 dark:bg-brand/20 border-l-4 border-brand" : "border-l-4 border-transparent"
         )}
       >
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1.5 lg:mb-1">
             <h3 className={cn(
-              "font-semibold truncate text-lg lg:text-base",
-              selectedStoryId === story.id ? "text-blue-700 dark:text-blue-400" : "text-gray-900 dark:text-gray-100"
+              "font-semibold truncate text-lg lg:text-base transition-colors",
+              selectedStoryId === story.id ? "text-brand-dark dark:text-brand-light" : "text-gray-900 dark:text-gray-100"
             )}>
               {story.title || 'Untitled Story'}
             </h3>
             <ChevronRight className={cn(
               "w-5 h-5 lg:w-4 lg:h-4 text-gray-300 dark:text-gray-600 transition-transform group-hover:translate-x-1",
-              selectedStoryId === story.id && "text-blue-400"
+              selectedStoryId === story.id && "text-brand"
             )} />
           </div>
           

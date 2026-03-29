@@ -56,8 +56,8 @@ export const FolderTree: React.FC<FolderTreeProps> = ({
           className={cn(
             "flex items-center gap-2 px-3 py-2 rounded-xl cursor-pointer transition-all group",
             selectedFolderId === folder.id 
-              ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400" 
-              : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+              ? "bg-brand/10 dark:bg-brand/20 text-brand dark:text-brand-light" 
+              : "hover:bg-brand/5 dark:hover:bg-brand/10 text-gray-600 dark:text-gray-400"
           )}
           style={{ paddingLeft: `${depth * 1 + 0.75}rem` }}
           onClick={() => onSelectFolder(folder.id)}
@@ -104,7 +104,7 @@ export const FolderTree: React.FC<FolderTreeProps> = ({
               <div className="flex items-center gap-2 px-3 py-1" style={{ paddingLeft: `${(depth + 1) * 1 + 0.75}rem` }}>
                 <input 
                   autoFocus
-                  className="flex-1 bg-white dark:bg-gray-800 border-2 border-blue-500 rounded-lg px-2 py-1 text-xs outline-none"
+                  className="flex-1 bg-white dark:bg-gray-800 border-2 border-brand rounded-lg px-2 py-1 text-xs outline-none focus:ring-2 focus:ring-brand/20 transition-all"
                   placeholder="Folder name..."
                   value={newFolderName}
                   onChange={e => setNewFolderName(e.target.value)}
@@ -133,7 +133,7 @@ export const FolderTree: React.FC<FolderTreeProps> = ({
         </button>
         <button 
           onClick={() => setIsAddingFolder('root')}
-          className="p-1 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 opacity-0 group-hover:opacity-100 transition-all"
+          className="p-1 text-gray-400 hover:text-brand dark:hover:text-brand-light opacity-0 group-hover:opacity-100 transition-all"
           title="New Root Folder"
         >
           <FolderPlus className="w-3.5 h-3.5" />
@@ -152,8 +152,8 @@ export const FolderTree: React.FC<FolderTreeProps> = ({
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all group",
                 selectedFolderId === null 
-                  ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400" 
-                  : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                  ? "bg-brand/10 dark:bg-brand/20 text-brand dark:text-brand-light" 
+                  : "hover:bg-brand/5 dark:hover:bg-brand/10 text-gray-600 dark:text-gray-400"
               )}
               onClick={() => onSelectFolder(null)}
             >
@@ -175,7 +175,7 @@ export const FolderTree: React.FC<FolderTreeProps> = ({
               <div className="px-3 py-1">
                 <input 
                   autoFocus
-                  className="w-full bg-white dark:bg-gray-800 border-2 border-blue-500 rounded-lg px-2 py-1 text-xs outline-none"
+                  className="w-full bg-white dark:bg-gray-800 border-2 border-brand rounded-lg px-2 py-1 text-xs outline-none focus:ring-2 focus:ring-brand/20 transition-all"
                   placeholder="Folder name..."
                   value={newFolderName}
                   onChange={e => setNewFolderName(e.target.value)}

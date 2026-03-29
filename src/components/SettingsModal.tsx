@@ -65,7 +65,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
       <div className="bg-white dark:bg-gray-900 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col h-[600px] max-h-[90vh] border border-gray-100 dark:border-gray-800">
         <div className="flex items-center justify-between p-6 border-b border-gray-100 dark:border-gray-800">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200 dark:shadow-blue-900/20">
+            <div className="w-10 h-10 bg-brand rounded-xl flex items-center justify-center shadow-lg shadow-pink-200 dark:shadow-none">
               <Settings className="w-5 h-5 text-white" />
             </div>
             <div>
@@ -89,8 +89,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               className={cn(
                 "flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-2 lg:gap-3 px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl text-xs lg:text-sm font-semibold transition-all whitespace-nowrap",
                 activeTab === 'tags' 
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/20" 
-                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  ? "bg-brand text-white shadow-lg shadow-pink-200 dark:shadow-none" 
+                  : "text-gray-500 dark:text-gray-400 hover:bg-brand/10"
               )}
             >
               <TagIcon className="w-4 h-4" />
@@ -101,8 +101,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               className={cn(
                 "flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-2 lg:gap-3 px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl text-xs lg:text-sm font-semibold transition-all whitespace-nowrap",
                 activeTab === 'appearance' 
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/20" 
-                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  ? "bg-brand text-white shadow-lg shadow-pink-200 dark:shadow-none" 
+                  : "text-gray-500 dark:text-gray-400 hover:bg-brand/10"
               )}
             >
               <Moon className="w-4 h-4" />
@@ -113,8 +113,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               className={cn(
                 "flex-1 lg:flex-none flex items-center justify-center lg:justify-start gap-2 lg:gap-3 px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl text-xs lg:text-sm font-semibold transition-all whitespace-nowrap",
                 activeTab === 'account' 
-                  ? "bg-blue-600 text-white shadow-lg shadow-blue-200 dark:shadow-blue-900/20" 
-                  : "text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  ? "bg-brand text-white shadow-lg shadow-pink-200 dark:shadow-none" 
+                  : "text-gray-500 dark:text-gray-400 hover:bg-brand/10"
               )}
             >
               <UserIcon className="w-4 h-4" />
@@ -133,11 +133,11 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       placeholder="Create new tag..."
                       value={newTagName}
                       onChange={(e) => setNewTagName(e.target.value)}
-                      className="flex-1 px-4 py-3 bg-gray-50 dark:bg-gray-800 border-none rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
+                      className="flex-1 px-4 py-3 bg-gray-50 dark:bg-gray-800 border-none rounded-xl focus:ring-2 focus:ring-brand outline-none text-gray-900 dark:text-white transition-all"
                     />
                     <button
                       type="submit"
-                      className="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 dark:hover:shadow-blue-900/20"
+                      className="p-3 bg-brand text-white rounded-xl hover:bg-brand-dark transition-all shadow-lg shadow-pink-200 dark:shadow-none"
                     >
                       <Plus className="w-5 h-5" />
                     </button>
@@ -150,7 +150,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                         onClick={() => setSelectedColor(color)}
                         className={cn(
                           "w-6 h-6 rounded-full transition-transform hover:scale-110",
-                          selectedColor === color && "ring-2 ring-offset-2 ring-blue-500 scale-110"
+                          selectedColor === color && "ring-2 ring-offset-2 ring-brand scale-110"
                         )}
                         style={{ backgroundColor: color }}
                       />
@@ -173,7 +173,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                               value={editingTagName}
                               onChange={(e) => setEditingTagName(e.target.value)}
                               autoFocus
-                              className="flex-1 px-2 py-1 bg-white dark:bg-gray-900 border border-blue-500 rounded-lg outline-none text-sm"
+                              className="flex-1 px-2 py-1 bg-white dark:bg-gray-900 border border-brand rounded-lg outline-none text-sm transition-all shadow-sm"
                             />
                             <button onClick={saveEdit} className="p-1 text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg">
                               <Check className="w-4 h-4" />
@@ -191,7 +191,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                               <button
                                 onClick={() => startEditing(tag)}
-                                className="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                                className="p-2 text-gray-400 hover:text-brand hover:bg-brand/10 rounded-lg transition-colors"
                               >
                                 <Edit2 className="w-4 h-4" />
                               </button>
@@ -222,7 +222,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                     onClick={() => setIsDarkMode(!isDarkMode)}
                     className={cn(
                       "relative inline-flex h-8 w-14 items-center rounded-full transition-colors focus:outline-none",
-                      isDarkMode ? "bg-blue-600" : "bg-gray-300 dark:bg-gray-700"
+                      isDarkMode ? "bg-brand" : "bg-gray-300 dark:bg-gray-700"
                     )}
                   >
                     <span
@@ -235,15 +235,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">PWA Installation</h3>
-                  <div className="p-6 bg-blue-50 dark:bg-blue-900/20 rounded-2xl border border-blue-100 dark:border-blue-900/30 space-y-4">
+                  <div className="p-6 bg-brand/5 dark:bg-brand/10 rounded-2xl border border-brand/10 dark:border-brand/20 space-y-4">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-200 dark:shadow-blue-900/20 shrink-0">
+                      <div className="w-12 h-12 bg-brand rounded-xl flex items-center justify-center shadow-lg shadow-pink-200 dark:shadow-none shrink-0">
                         <Download className="w-6 h-6 text-white" />
                       </div>
                       <div className="space-y-1">
-                        <h4 className="font-bold text-blue-900 dark:text-blue-300">Install StoryArch</h4>
-                        <p className="text-xs text-blue-700/70 dark:text-blue-400/70 leading-relaxed">Install StoryArch as a native app on your device for a better experience and offline access.</p>
+                        <h4 className="font-bold text-brand-dark dark:text-brand-light">Install StoryArch</h4>
+                        <p className="text-xs text-brand/70 dark:text-brand-light/70 leading-relaxed">Install StoryArch as a native app on your device for a better experience and offline access.</p>
                       </div>
                     </div>
                     <button
@@ -252,7 +251,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
                       className={cn(
                         "w-full py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2",
                         deferredPrompt 
-                          ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-200 dark:hover:shadow-blue-900/20" 
+                          ? "bg-brand text-white hover:bg-brand-dark shadow-lg hover:shadow-pink-200 dark:shadow-none" 
                           : "bg-gray-200 dark:bg-gray-800 text-gray-400 cursor-not-allowed"
                       )}
                     >

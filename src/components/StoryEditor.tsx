@@ -126,7 +126,7 @@ export const StoryEditor: React.FC<StoryEditorProps> = ({
           {isEditing ? (
             <button
               onClick={handleSave}
-              className="flex items-center gap-2 px-5 lg:px-4 py-2.5 lg:py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-blue-200 dark:hover:shadow-blue-900/20 font-bold text-sm"
+              className="flex items-center gap-2 px-5 lg:px-4 py-2.5 lg:py-2 bg-brand text-white rounded-xl hover:bg-brand-dark transition-all shadow-lg hover:shadow-pink-200 dark:hover:shadow-none font-bold text-sm"
             >
               <Save className="w-5 h-5 lg:w-4 lg:h-4" />
               <span>Save</span>
@@ -134,7 +134,7 @@ export const StoryEditor: React.FC<StoryEditorProps> = ({
           ) : (
             <button
               onClick={() => setIsEditing(true)}
-              className="px-5 lg:px-4 py-2.5 lg:py-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors font-bold text-sm"
+              className="px-5 lg:px-4 py-2.5 lg:py-2 text-brand dark:text-brand-light hover:bg-brand/10 rounded-xl transition-colors font-bold text-sm"
             >
               Edit Story
             </button>
@@ -163,7 +163,7 @@ export const StoryEditor: React.FC<StoryEditorProps> = ({
                 <select
                   value={folderId || ''}
                   onChange={(e) => setFolderId(e.target.value || null)}
-                  className="w-full px-4 py-3 lg:py-2.5 bg-gray-50 dark:bg-gray-800 border-none rounded-xl focus:ring-2 focus:ring-blue-500 outline-none text-base lg:text-sm font-semibold text-gray-700 dark:text-gray-300"
+                  className="w-full px-4 py-3 lg:py-2.5 bg-gray-50 dark:bg-gray-800 border-none rounded-xl focus:ring-2 focus:ring-brand outline-none text-base lg:text-sm font-semibold text-gray-700 dark:text-gray-300 transition-all"
                 >
                   <option value="">Root Folder</option>
                   {folders.map(f => (
@@ -185,8 +185,8 @@ export const StoryEditor: React.FC<StoryEditorProps> = ({
                       className={cn(
                         "px-3.5 py-1.5 lg:px-3 lg:py-1 rounded-full text-[11px] lg:text-[10px] font-bold uppercase tracking-wider transition-all border",
                         selectedTags.includes(tag.id)
-                          ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-100 dark:shadow-blue-900/20"
-                          : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 text-gray-400 dark:text-gray-500 hover:border-blue-300 dark:hover:border-blue-700"
+                          ? "bg-brand border-brand text-white shadow-md shadow-pink-100 dark:shadow-none"
+                          : "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 text-gray-400 dark:text-gray-500 hover:border-brand/40"
                       )}
                     >
                       {tag.name}
@@ -200,9 +200,9 @@ export const StoryEditor: React.FC<StoryEditorProps> = ({
                       onChange={(e) => setNewTagName(e.target.value)}
                       className="text-[11px] lg:text-[10px] font-bold px-3.5 py-1.5 lg:px-3 lg:py-1 border border-dashed border-gray-300 dark:border-gray-700 rounded-full focus:border-blue-500 outline-none bg-transparent text-gray-900 dark:text-white w-28 lg:w-24"
                     />
-                    <button type="submit" className="ml-1 p-1.5 text-gray-400 hover:text-blue-600">
-                      <Plus className="w-4 h-4 lg:w-3 lg:h-3" />
-                    </button>
+                      <button type="submit" className="ml-1 p-1.5 text-gray-400 hover:text-brand transition-colors">
+                        <Plus className="w-4 h-4 lg:w-3 lg:h-3" />
+                      </button>
                   </form>
                 </div>
               </div>
@@ -216,7 +216,7 @@ export const StoryEditor: React.FC<StoryEditorProps> = ({
             />
           </div>
         ) : (
-          <div className="prose prose-lg prose-blue dark:prose-invert max-w-none animate-in fade-in duration-500">
+          <div className="prose prose-lg prose-pink dark:prose-invert max-w-none animate-in fade-in duration-500">
             <h1 className="text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight leading-tight">{title || 'Untitled'}</h1>
             
             <div className="flex flex-wrap gap-2 lg:gap-3 mb-8 lg:mb-10">
