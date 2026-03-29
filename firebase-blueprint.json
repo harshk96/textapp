@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "Story": {
+      "title": "Story",
+      "description": "A piece of writing with metadata.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "The title of the story." },
+        "content": { "type": "string", "description": "The main text content." },
+        "tags": { "type": "array", "items": { "type": "string" }, "description": "List of tag IDs." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp." },
+        "authorId": { "type": "string", "description": "The UID of the user who created the story." }
+      },
+      "required": ["title", "content", "tags", "createdAt", "updatedAt", "authorId"]
+    },
+    "Tag": {
+      "title": "Tag",
+      "description": "A label for organizing stories.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the tag." },
+        "color": { "type": "string", "description": "Hex color code for the tag." },
+        "authorId": { "type": "string", "description": "The UID of the user who created the tag." }
+      },
+      "required": ["name", "color", "authorId"]
+    }
+  },
+  "firestore": {
+    "/stories/{storyId}": {
+      "schema": "Story",
+      "description": "Collection of stories."
+    },
+    "/tags/{tagId}": {
+      "schema": "Tag",
+      "description": "Collection of tags."
+    }
+  }
+}

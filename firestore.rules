@@ -1,0 +1,99 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: stories
+    // Document ID: auto-generated
+    // Fields:
+    //   - title: string (required, 1-200 chars)
+    //   - content: string (required, 1-100000 chars)
+    //   - tags: list (required, max 20 tags, each tag is a string UID)
+    //   - createdAt: timestamp (required, immutable)
+    //   - updatedAt: timestamp (required)
+    //   - authorId: string (required, immutable, matches auth.uid)
+    //
+    // Collection: tags
+    // Document ID: auto-generated
+    // Fields:
+    //   - name: string (required, 1-50 chars)
+    //   - color: string (required, hex format)
+    //   - authorId: string (required, immutable, matches auth.uid)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(authorId) {
+      return isAuthenticated() && request.auth.uid == authorId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        (get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin' ||
+          (request.auth.token.email == "harshkathrotiya47@gmail.com" && request.auth.token.email_verified == true));
+    }
+
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    function hasOnlyAllowedFields(fields) {
+      return request.resource.data.keys().hasOnly(fields);
+    }
+
+    function isValidStory(data) {
+      return hasRequiredFields(['title', 'content', 'tags', 'createdAt', 'updatedAt', 'authorId']) &&
+             hasOnlyAllowedFields(['title', 'content', 'tags', 'createdAt', 'updatedAt', 'authorId']) &&
+             data.title is string && data.title.size() >= 1 && data.title.size() <= 200 &&
+             data.content is string && data.content.size() >= 0 && data.content.size() <= 100000 &&
+             data.tags is list && data.tags.size() <= 20 &&
+             data.authorId == request.auth.uid;
+    }
+
+    function isValidTag(data) {
+      return hasRequiredFields(['name', 'color', 'authorId']) &&
+             hasOnlyAllowedFields(['name', 'color', 'authorId']) &&
+             data.name is string && data.name.size() >= 1 && data.name.size() <= 50 &&
+             data.color is string && data.color.matches("^#[0-9a-fA-F]{6}$") &&
+             data.authorId == request.auth.uid;
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /stories/{storyId} {
+      allow read: if isOwner(resource.data.authorId) || isAdmin();
+      allow create: if isAuthenticated() && isValidStory(request.resource.data);
+      allow update: if (isOwner(resource.data.authorId) || isAdmin()) && 
+                      isValidStory(request.resource.data) &&
+                      request.resource.data.authorId == resource.data.authorId &&
+                      request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isOwner(resource.data.authorId) || isAdmin();
+    }
+
+    match /tags/{tagId} {
+      allow read: if isOwner(resource.data.authorId) || isAdmin();
+      allow create: if isAuthenticated() && isValidTag(request.resource.data);
+      allow update: if (isOwner(resource.data.authorId) || isAdmin()) && 
+                      isValidTag(request.resource.data) &&
+                      request.resource.data.authorId == resource.data.authorId;
+      allow delete: if isOwner(resource.data.authorId) || isAdmin();
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow write: if isAdmin();
+    }
+  }
+}
