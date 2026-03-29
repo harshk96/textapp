@@ -13,7 +13,9 @@ import {
   doc, 
   serverTimestamp,
   orderBy,
-  getDoc
+  getDoc,
+  setDoc,
+  Timestamp
 } from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
@@ -48,5 +50,7 @@ export {
   doc,
   serverTimestamp,
   orderBy,
-  getDoc
+  getDoc,
+  setDoc,
+  Timestamp
 };

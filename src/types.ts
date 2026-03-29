@@ -1,8 +1,20 @@
+export interface Folder {
+  id: string;
+  name: string;
+  parentId: string | null; // For nested folders
+  authorId: string;
+  createdAt: any;
+  updatedAt: any;
+}
+
+export type { User } from 'firebase/auth';
+
 export interface Story {
   id: string;
   title: string;
   content: string;
   tags: string[]; // Array of tag IDs
+  folderId: string | null; // Folder association
   createdAt: any;
   updatedAt: any;
   authorId: string;

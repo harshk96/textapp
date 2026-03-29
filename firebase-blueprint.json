@@ -8,11 +8,25 @@
         "title": { "type": "string", "description": "The title of the story." },
         "content": { "type": "string", "description": "The main text content." },
         "tags": { "type": "array", "items": { "type": "string" }, "description": "List of tag IDs." },
+        "folderId": { "type": ["string", "null"], "description": "The ID of the folder this story belongs to." },
         "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." },
         "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp." },
         "authorId": { "type": "string", "description": "The UID of the user who created the story." }
       },
       "required": ["title", "content", "tags", "createdAt", "updatedAt", "authorId"]
+    },
+    "Folder": {
+      "title": "Folder",
+      "description": "A container for stories and other folders.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the folder." },
+        "parentId": { "type": ["string", "null"], "description": "The ID of the parent folder." },
+        "authorId": { "type": "string", "description": "The UID of the user who created the folder." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp." }
+      },
+      "required": ["name", "authorId", "createdAt", "updatedAt"]
     },
     "Tag": {
       "title": "Tag",
@@ -34,6 +48,10 @@
     "/tags/{tagId}": {
       "schema": "Tag",
       "description": "Collection of tags."
+    },
+    "/folders/{folderId}": {
+      "schema": "Folder",
+      "description": "Collection of folders."
     }
   }
 }
