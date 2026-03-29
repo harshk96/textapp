@@ -77,9 +77,17 @@ export const useFirebase = () => {
 
     const unsubStories = onSnapshot(storiesQuery, (snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
-        const data = { id: change.doc.id, ...change.doc.data() } as Story;
+        const data = change.doc.data();
+        // Convert Firestore Timestamps to local Date objects for stable sorting/indexing in Dexie
+        const story: Story = {
+          ...data,
+          id: change.doc.id,
+          createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : data.createdAt,
+          updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : data.updatedAt,
+        } as Story;
+
         if (change.type === 'added' || change.type === 'modified') {
-          await dbLocal.stories.put(data);
+          await dbLocal.stories.put(story);
         } else if (change.type === 'removed') {
           await dbLocal.stories.delete(change.doc.id);
         }
@@ -88,9 +96,10 @@ export const useFirebase = () => {
 
     const unsubTags = onSnapshot(tagsQuery, (snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
-        const data = { id: change.doc.id, ...change.doc.data() } as Tag;
+        const data = change.doc.data();
+        const tag: Tag = { id: change.doc.id, ...data } as Tag;
         if (change.type === 'added' || change.type === 'modified') {
-          await dbLocal.tags.put(data);
+          await dbLocal.tags.put(tag);
         } else if (change.type === 'removed') {
           await dbLocal.tags.delete(change.doc.id);
         }
@@ -99,9 +108,16 @@ export const useFirebase = () => {
 
     const unsubFolders = onSnapshot(foldersQuery, (snapshot) => {
       snapshot.docChanges().forEach(async (change) => {
-        const data = { id: change.doc.id, ...change.doc.data() } as Folder;
+        const data = change.doc.data();
+        const folder: Folder = {
+          ...data,
+          id: change.doc.id,
+          createdAt: data.createdAt?.toDate ? data.createdAt.toDate() : data.createdAt,
+          updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate() : data.updatedAt,
+        } as Folder;
+
         if (change.type === 'added' || change.type === 'modified') {
-          await dbLocal.folders.put(data);
+          await dbLocal.folders.put(folder);
         } else if (change.type === 'removed') {
           await dbLocal.folders.delete(change.doc.id);
         }
@@ -147,7 +163,7 @@ export const useFirebase = () => {
       const docRef = doc(collection(db, 'stories'));
       const newStory: Story = {
         id: docRef.id,
-        title: story.title || '',
+        title: (story.title || '').trim() || 'Untitled Story',
         content: story.content || '',
         tags: story.tags || [],
         folderId: story.folderId || null,
@@ -164,11 +180,13 @@ export const useFirebase = () => {
 
   const updateStory = async (id: string, story: Partial<Story>) => {
     try {
+      const { id: _, authorId: __, createdAt: ___, ...sanitizedData } = story as any;
       const updateData = {
-        ...story,
+        ...sanitizedData,
         updatedAt: Timestamp.now(),
       };
       await updateDoc(doc(db, 'stories', id), updateData);
+      
       const existing = await dbLocal.stories.get(id);
       if (existing) {
         await dbLocal.stories.update(id, updateData);
@@ -193,8 +211,8 @@ export const useFirebase = () => {
       const docRef = doc(collection(db, 'tags'));
       const newTag: Tag = {
         id: docRef.id,
-        name: tag.name || '',
-        color: tag.color || '#3b82f6',
+        name: (tag.name || '').trim() || 'New Tag',
+        color: tag.color || '#f06292', // Use our new brand pink
         authorId: user.uid,
       };
       await setDoc(docRef, newTag);
@@ -206,8 +224,9 @@ export const useFirebase = () => {
 
   const updateTag = async (id: string, tag: Partial<Tag>) => {
     try {
-      await updateDoc(doc(db, 'tags', id), tag);
-      await dbLocal.tags.update(id, tag);
+      const { id: _, authorId: __, ...sanitizedData } = tag as any;
+      await updateDoc(doc(db, 'tags', id), sanitizedData);
+      await dbLocal.tags.update(id, sanitizedData);
     } catch (e) {
       handleFirestoreError(e, OperationType.UPDATE, `tags/${id}`);
     }

@@ -17,7 +17,7 @@ export default defineConfig(({mode}) => {
           name: 'StoryArch',
           short_name: 'StoryArch',
           description: 'Your personal library for stories, notes, and ideas.',
-          theme_color: '#2563eb',
+          theme_color: '#f06292',
           icons: [
             {
               src: 'https://picsum.photos/seed/storyarch/192/192',
